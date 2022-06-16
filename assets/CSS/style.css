@@ -1,0 +1,16 @@
+/* * {
+   box-sizing: border-box;
+   font-size: 100%;
+}
+
+body {
+   width: 90%;
+
+   align-items: center;
+   border-style: solid double;
+   margin-left: 10%;
+} */
+
+h2 {
+   font-size: 2rem;
+}

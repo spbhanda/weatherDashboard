@@ -5,10 +5,57 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="./assets/CSS/style.css" />
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+      <link
+         rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+         crossorigin="anonymous"
+      />
       <title>Weather Dashboard</title>
    </head>
-   <body>
+   <body class="container">
+      <header class="container jumbotron text-center">
+         <h1>Weather Dashboard</h1>
+      </header>
+
+      <main class="row">
+         <!-- City seach colum -->
+         <div class="col-sm-12 col-md-3">
+            <!-- form div -->
+            <div class="d-flex flex-column ml-3">
+               <label for="city-search">Enter Name of a City: </label>
+               <input type="text" placeholder="City" id="city-search" />
+               <button type="submit" class="bg-info btn mt-2" id="search-btn">Search</button>
+            </div>
+            <div class="mt-2 text-center">
+               <div><h2>Search Histry:</h2></div>
+               <div id="search-history">
+                  <ul>
+                     <li></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+
+         <!-- Dash board content -->
+         <div class="col-sm-12 col-md-9">
+            <div id="city-info" class="d-flex col-sm-12 col-md-9">
+               <h3 id="city-name" class="pr-4">City Name</h3>
+               <h3 id="current-date" class="pl-4">Date</h3>
+               <img id="icon" />
+            </div>
+            <div class="mt-2">
+               <p>Temperature: <span id="temperature"></span> &deg;F</p>
+               <p>Humidity: <span id="humidity"></span>%</p>
+               <p>Wind Speed: <span id="wind"></span> MPH</p>
+               <p>UV Index: <span id="uv-index" class="p-1"></span></p>
+            </div>
+
+            <!-- forcasts for next 5 days -->
+            <p>5 Days forcasts:</p>
+         </div>
+      </main>
+
       <!-- jQuery -->
       <script
          src="https://code.jquery.com/jquery-3.5.1.min.js"
