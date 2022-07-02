@@ -14,3 +14,19 @@ body {
 h2 {
    font-size: 2rem;
 }
+
+.left-colum {
+   border-style: groove;
+}
+.forecast-div {
+   margin-left: 25%;
+}
+.city-div {
+   border-style: groove;
+}
+
+.city-info {
+   display: flex;
+   
+   justify-content:space-between;
+}
