@@ -16,7 +16,7 @@
 
    <!-- Body page -->
    <body class="container">
-      <header class="container jumbotron text-center">
+      <header class="header">
          <h1>Weather Dashboard</h1>
       </header>
 
@@ -29,8 +29,11 @@
                <input type="text" placeholder="City" id="city-search" />
                <button type="submit" class="bg-info btn mt-2" id="search-btn">Search</button>
             </form>
-            <div class="mt-2 text-center">
-               <div><h2>Search History:</h2></div>
+            <div class="local-storage mt-2 text-center">
+               <div>
+                  <h2 class="h2-element">Search History:</h2>
+                  <div id="storage-div"></div>
+               </div>
                <div id="search-history">
                   <ul style="list-style: none">
                      <li></li>
@@ -44,25 +47,25 @@
             <div id="city-info" class="d-flex col-sm-12 col-md-9">
                <h3 id="display-city" class="pr-4 pt-2">City Name</h3>
                <h3 id="current-date" class="pl-4 pt-2">Date</h3>
-               <img src="" alt="" id="icon" />
+               <img src="" alt="" id="icon" class="mt-0" />
             </div>
             <div id="weather-data-div" class="mt-2">
                <p>Temperature: <span id="temperature"></span> &deg;F</p>
                <p>Humidity: <span id="humidity"></span>%</p>
                <p>Wind Speed: <span id="wind-speed"></span> MPH</p>
-               <p>UV Index: <span id="uv-index" class="p-1"></span></p>
+               <p>UV Index: <span id="uv-index" class="pl-1"></span></p>
             </div>
          </div>
 
          <!-- 5 days forecasts -->
-         <div class="forecast-div col-sm-12 col-md-9">
-            <h2>5 Days Forecast:</h2>
-            <div class="forecast" id="forecast">
-               <!-- <div id="forecast-day1">forecast-day1</div>
-               <div id="forecast-day2">forecast-day2</div>
-               <div id="forecast-day3">forecast-day3</div>
-               <div id="forecast-day4">forecast-day4</div>
-               <div id="forecast-day5">forecast-day5</div> -->
+         <div class="forecast-div">
+            <h2 class="h2-element">Next 5 Days Forecast:</h2>
+            <div class="forecast d-flex col-sm-12 col-md-9 ml-0 mr-0" id="forecast">
+               <div class="forcast-box" id="forecast-day-1">Day 1</div>
+               <div class="forcast-box" id="forecast-day-2">Day 2</div>
+               <div class="forcast-box" id="forecast-day-3">Day 3</div>
+               <div class="forcast-box" id="forecast-day-4">Day 4</div>
+               <div class="forcast-box" id="forecast-day-5">Day 5</div>
             </div>
          </div>
       </main>

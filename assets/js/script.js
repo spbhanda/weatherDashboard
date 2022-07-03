@@ -16,7 +16,8 @@ var currentWindSpeed = document.querySelector("#wind-speed");
 var currentUvIndex = document.querySelector("#uv-index");
 
 var cityName = "";
-var icon = "";
+
+// Form Submit Handler ---------------------------------
 
 var formSubmitHandler = function (event) {
    // prevent page from refreshing
@@ -24,7 +25,6 @@ var formSubmitHandler = function (event) {
 
    // get value from input element
    var cityInput = citySearchEl.value.trim();
-   console.log(cityInput);
 
    if (cityInput) {
       getWeatherData(cityInput);
@@ -39,6 +39,8 @@ var formSubmitHandler = function (event) {
    cityName = cityInput;
 };
 
+// collect weather data from API -------------------------------------------
+
 var getWeatherData = function (cityName) {
    // get the current weather from weather API
 
@@ -52,7 +54,7 @@ var getWeatherData = function (cityName) {
 };
 
 var getWeatherDetail = function (lat, lon) {
-   console.group("lat, lon: " + lat, lon);
+   // console.group("lat, lon: " + lat, lon);
    fetch(
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
          lat +
@@ -67,20 +69,108 @@ var getWeatherDetail = function (lat, lon) {
       })
       .then(function (data) {
          displayCityWeather(data);
+         displayForcast(data)
       });
 };
 
-// display current weather
+// display current weather ----------------------------------------
 var displayCityWeather = function (data) {
    displayCityEl.innerHTML = cityName;
-   currentDateEl.innerHTML = moment().format("dddd");
-   icon = data.current.weather[0].icon;
+   let dt = data.current.dt;
+   day = new Date(dt * 1000);
+   date = day.toLocaleString("en-US").split(",")[0];
+   // currentDateEl.innerHTML = moment().format("mm/dd/yyyy");
+   currentDateEl.innerHTML = date;
+
+   let icon = data.current.weather[0].icon;
+
    iconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
 
    currentTemp.innerHTML = data.current.temp;
    currentHumidity.innerHTML = data.current.humidity;
    currentWindSpeed.innerHTML = data.current.wind_speed;
    currentUvIndex.innerHTML = data.current.uvi;
+};
+
+// display 5-day forecast weather--------------------------------
+
+var displayForcast = function (data) {
+   for (let i = 1; i <= 5; i++) {
+      // initials
+      let date,
+         day,
+         dt,
+         temp,
+         wind,
+         icon,
+         humidity = "";
+      // console.log("day: " + i + "===================================");
+
+      //   get date
+      dt = data.daily[i].dt;
+      day = new Date(dt * 1000);
+      date = day.toLocaleString("en-US").split(",")[0];
+      // console.log("date: " + date);
+
+      // get icon
+      icon = data.daily[i].weather[0].icon;
+      // console.log("daily icon: " + icon);
+
+      // get Temp
+      temp = data.daily[i].temp.day;
+      // console.log("day Temp: " + temp);
+
+      // get wind-speed
+      wind = data.daily[i].wind_speed;
+      // console.log("day wind speed: " + wind);
+
+      // get humidity
+      humidity = data.daily[i].humidity;
+      // console.log("day humidity: " + humidity);
+
+      // update forecast-day-x for each day -----------------------------------------
+
+      // update HTML forecast-day div id
+      let forecastDiv = "forecast-day-" + i;
+      let forecastDivEl = document.getElementById(forecastDiv);
+      forecastDivEl.innerHTML = ""; // clear div names
+
+      // create 'p element' for date
+      let dateEl = document.createElement("p");
+      // forecastDivEl.appendChild(dateEl);
+      dateEl.textContent = date;
+
+      // create 'image element' for icon
+      let iconEl = document.createElement("img");
+      icon.id = "icon-forecast";
+      iconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+
+      // create 'p element' for temperature
+      let tempEl = document.createElement("p");
+      tempEl.textContent = "Temp: " + temp + " °F";
+
+      // create 'p element' for wind-speed
+      let windEl = document.createElement("p");
+      windEl.textContent = "Wind: " + wind + " MPH";
+
+      // create 'p element' for wind-speed
+      let humidityEl = document.createElement("p");
+      humidityEl.textContent = "Humidity: " + humidity + " %";
+
+      // Fill the forecast box
+      forecastDivEl.append(dateEl, iconEl, tempEl, windEl, humidityEl);
+   }
+};
+
+// save in local storage and display
+var storeCity = function () {
+   console.log(cityName);
+   console.log("cityName");
+   let storageDivEl = document.getElementById("storage-div");
+   localStorage.setItem(cityName);
+   let newCity = document.createElement("p");
+   newCity.innerHTML = cityName;
+   storageDivEl.append("newCIty");
 };
 
 // Add event listener
