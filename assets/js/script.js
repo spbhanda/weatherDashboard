@@ -79,7 +79,7 @@ var formSubmitHandler = function (event) {
 var getWeatherData = function (cityName) {
    // get the current weather from weather API
 
-   fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + apiKey)
+   fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + apiKey)
       .then(function (response) {
          return response.json();
       })
