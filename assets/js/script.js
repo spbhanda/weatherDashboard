@@ -177,7 +177,7 @@ var displayForcast = function (data) {
       // create 'image element' for icon
       let iconEl = document.createElement("img");
       icon.id = "icon-forecast";
-      iconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+      iconEl.src = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
       // create 'p element' for temperature
       let tempEl = document.createElement("p");
