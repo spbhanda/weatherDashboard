@@ -18,5 +18,5 @@ When a user search a city, the app will display the city's current weather condi
 
 ## Webpage Snapshot: First page
 
-![](https://github.com/spbhanda/weatherDashboard/blob/main/assets/images/WebPage_image)
+![](https://github.com/spbhanda/weatherDashboard/blob/main/assets/images/WebPage_image.JPG)
 
