@@ -14,8 +14,39 @@ var currentTemp = document.querySelector("#temperature");
 var currentHumidity = document.querySelector("#humidity");
 var currentWindSpeed = document.querySelector("#wind-speed");
 var currentUvIndex = document.querySelector("#uv-index");
+var cityListDiv = document.getElementById("storage-div");
 
+var cityNameList = [];
+var cityNameListArr = [];
+
+var storedCities = [];
 var cityName = "";
+var cityNameOld = "";
+
+// save in local storage and display-----------------------------------------------------
+
+// Store searched cities in local storage
+function storeCities(cityName) {
+   localStorage.setItem("searchedCity", cityName);
+
+   storedCities = localStorage.getItem("searchedCity");
+
+   let cityBtn = document.createElement("button");
+   cityNameList.push(cityName);
+
+   if (cityNameList.length > 5) {
+      cityNameList.shift();
+   }
+   cityName = cityNameList[cityNameList.length - 1];
+   console.log("cityNameLength: " + cityNameList.length);
+
+   if (cityName !== cityNameList[cityNameList.length - 2]) {
+      if (cityNameList.length <= 4) {
+         cityBtn.textContent = cityName;
+         cityListDiv.append(cityBtn);
+      }
+   }
+}
 
 // Form Submit Handler ---------------------------------
 
@@ -29,6 +60,8 @@ var formSubmitHandler = function (event) {
    if (cityInput) {
       getWeatherData(cityInput);
 
+      // storeCity(cityInput);
+
       // clear old content
       // weatherDataEl.textContent = "";
       // citySearchEl.value = "";
@@ -37,6 +70,8 @@ var formSubmitHandler = function (event) {
    }
 
    cityName = cityInput;
+
+   storeCities(cityName);
 };
 
 // collect weather data from API -------------------------------------------
@@ -69,7 +104,7 @@ var getWeatherDetail = function (lat, lon) {
       })
       .then(function (data) {
          displayCityWeather(data);
-         displayForcast(data)
+         displayForcast(data);
       });
 };
 
@@ -92,8 +127,7 @@ var displayCityWeather = function (data) {
    currentUvIndex.innerHTML = data.current.uvi;
 };
 
-// display 5-day forecast weather--------------------------------
-
+// display 5-day forecast weather------------------------------------------------------------------------
 var displayForcast = function (data) {
    for (let i = 1; i <= 5; i++) {
       // initials
@@ -128,7 +162,7 @@ var displayForcast = function (data) {
       humidity = data.daily[i].humidity;
       // console.log("day humidity: " + humidity);
 
-      // update forecast-day-x for each day -----------------------------------------
+      // update forecast-day-x for each day --------------------------------------------------------
 
       // update HTML forecast-day div id
       let forecastDiv = "forecast-day-" + i;
@@ -162,16 +196,8 @@ var displayForcast = function (data) {
    }
 };
 
-// save in local storage and display
-var storeCity = function () {
-   console.log(cityName);
-   console.log("cityName");
-   let storageDivEl = document.getElementById("storage-div");
-   localStorage.setItem(cityName);
-   let newCity = document.createElement("p");
-   newCity.innerHTML = cityName;
-   storageDivEl.append("newCIty");
-};
-
-// Add event listener
+// Add event listener --------------------------------------------------------------------
 formEl.addEventListener("submit", formSubmitHandler);
+
+// Load stored cities
+// storeCities();
